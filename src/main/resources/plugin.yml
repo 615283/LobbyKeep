@@ -1,0 +1,5 @@
+name: LobbyKeep
+author: 615283
+description: Stops people falling into the void.
+version: ${project.version}
+main: com.georlegacy.general.lobbykeep.LobbyKeep

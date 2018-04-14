@@ -1,0 +1,15 @@
+# This defines at what y level players will be teleported to the world spawn
+FallLimit: 10
+
+# These are the worlds that this will take effect in
+WorldNames:
+- MyWorld
+- MyLovelyLobby
+
+# This means levels will be different for different worlds
+DiffLevels: false
+
+# Below is required for DiffLevels: true
+# These are the individual levels for different lobby worlds
+# MyWorld: 10
+# MyLovelyLobby: 5
