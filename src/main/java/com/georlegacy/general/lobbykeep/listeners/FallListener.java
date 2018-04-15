@@ -2,6 +2,7 @@ package com.georlegacy.general.lobbykeep.listeners;
 
 import com.georlegacy.general.lobbykeep.LobbyKeep;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,6 +27,7 @@ public class FallListener implements Listener {
         if (!lk.diffLevels) {
             if (p.getLocation().getBlockY()<lk.level) {
                 p.teleport(p.getWorld().getSpawnLocation());
+                p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 1, 1.25F);
             } else return;
         } else {
             if (lk.getConfig().getInt(w.getName())>p.getLocation().getBlockY()) {
