@@ -10,6 +10,10 @@ import java.io.File;
 import java.util.List;
 
 public class LobbyKeep extends JavaPlugin {
+    private ParkourData parkourData = new ParkourData(this);
+    public ParkourData getParkourData() {
+        return parkourData;
+    }
 
     @Override
     public void onEnable() {
@@ -18,7 +22,10 @@ public class LobbyKeep extends JavaPlugin {
         if (!new File(getDataFolder() + File.separator + "config.yml").exists()) {
             saveResource("config.yml", true);
         }
+        getParkourData().load();
     }
+
+    public List<String> registeredParkours = getParkourData().parkour.getStringList("RegisteredParkourNames");
 
     public boolean diffLevels = getConfig().getBoolean("DiffLevels");
 
