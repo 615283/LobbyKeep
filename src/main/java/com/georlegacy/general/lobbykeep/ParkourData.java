@@ -3,10 +3,12 @@ package com.georlegacy.general.lobbykeep;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ParkourData {
@@ -36,6 +38,21 @@ public class ParkourData {
                     parkour.getDouble(s + ".Start.X"),
                     parkour.getDouble(s + ".Start.Y"),
                     parkour.getDouble(s + ".Start.Z")
+            ));
+        }
+        return locs;
+    }
+
+    public HashMap<Player, String> parkourAttempts = new HashMap<Player, String>();
+
+    public List<Location> getEndPoints() {
+        List<Location> locs = new ArrayList<Location>();
+        for (String s : lk.registeredParkours) {
+            locs.add(new Location(
+                    lk.getServer().getWorld(parkour.getString(s + ".World")),
+                    parkour.getDouble(s + ".End.X"),
+                    parkour.getDouble(s + ".End.Y"),
+                    parkour.getDouble(s + ".End.Z")
             ));
         }
         return locs;
