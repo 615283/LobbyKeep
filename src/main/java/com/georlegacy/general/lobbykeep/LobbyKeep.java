@@ -3,6 +3,7 @@
 package com.georlegacy.general.lobbykeep;
 
 import com.georlegacy.general.lobbykeep.listeners.FallListener;
+import com.georlegacy.general.lobbykeep.listeners.PKMoveListener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,13 +20,15 @@ public class LobbyKeep extends JavaPlugin {
     public void onEnable() {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new FallListener(this), this);
+        pm.registerEvents(new PKMoveListener(this), this);
         if (!new File(getDataFolder() + File.separator + "config.yml").exists()) {
             saveResource("config.yml", true);
         }
         getParkourData().load();
+        registeredParkours = getParkourData().parkour.getStringList("RegisteredParkourNames");
     }
 
-    public List<String> registeredParkours = getParkourData().parkour.getStringList("RegisteredParkourNames");
+    public List<String> registeredParkours;
 
     public boolean diffLevels = getConfig().getBoolean("DiffLevels");
 

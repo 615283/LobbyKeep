@@ -1,5 +1,6 @@
 package com.georlegacy.general.lobbykeep;
 
+import org.apache.commons.lang.time.StopWatch;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -26,9 +27,10 @@ public class ParkourData {
                 e.printStackTrace();
             }
         }
+        parkour = YamlConfiguration.loadConfiguration(new File(lk.getDataFolder() + File.separator + "parkour.yml"));
     }
 
-    public YamlConfiguration parkour = YamlConfiguration.loadConfiguration(new File(lk.getDataFolder() + File.separator + "parkour.yml"));
+    public YamlConfiguration parkour;
 
     public List<Location> getStartPoints() {
         List<Location> locs = new ArrayList<Location>();
@@ -44,6 +46,8 @@ public class ParkourData {
     }
 
     public HashMap<Player, String> parkourAttempts = new HashMap<Player, String>();
+
+    public HashMap<Player, StopWatch> parkourAttempsTimes = new HashMap<Player, StopWatch>();
 
     public List<Location> getEndPoints() {
         List<Location> locs = new ArrayList<Location>();
