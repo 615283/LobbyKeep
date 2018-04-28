@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +32,8 @@ public class ParkourData {
     }
 
     public YamlConfiguration parkour;
+
+    public HashMap<Player, Vector> plocs = new HashMap<Player, Vector>();
 
     public List<Location> getStartPoints() {
         List<Location> locs = new ArrayList<Location>();

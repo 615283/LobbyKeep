@@ -2,6 +2,7 @@ package com.georlegacy.general.lobbykeep.listeners;
 
 import com.georlegacy.general.lobbykeep.LobbyKeep;
 import org.apache.commons.lang.time.StopWatch;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -17,22 +18,25 @@ public class PKMoveListener implements Listener {
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
+        if (lk.getParkourData().plocs.containsKey(e.getPlayer())) {
+            if (
+                    (e.getPlayer().getLocation().getBlockX() == lk.getParkourData().plocs.get(e.getPlayer()).getBlockX()) &&
+                            (e.getPlayer().getLocation().getBlockY() == lk.getParkourData().plocs.get(e.getPlayer()).getBlockY()) &&
+                            (e.getPlayer().getLocation().getBlockZ() == lk.getParkourData().plocs.get(e.getPlayer()).getBlockZ())
+                    ) {
+                lk.getParkourData().plocs.put(e.getPlayer(), e.getPlayer().getLocation().toVector());
+                return;
+            }
+        }
+        lk.getParkourData().plocs.put(e.getPlayer(), e.getPlayer().getLocation().toVector());
         Location loc = e.getPlayer().getLocation();
         for (Location l : lk.getParkourData().getStartPoints()) {
             if (
                     l.getBlockX()==(e.getPlayer().getLocation().getBlockX()) &&
-                    l.getBlockY()==(e.getPlayer().getLocation().getBlockY()) &&
-                    l.getBlockZ()==(e.getPlayer().getLocation().getBlockZ()) &&
-                    l.getWorld()==(e.getPlayer().getWorld())
-               ){
-                if (
-                        e.getFrom().getBlockX()==(e.getPlayer().getLocation().getBlockX()) &&
-                        e.getFrom().getBlockY()==(e.getPlayer().getLocation().getBlockY()) &&
-                        e.getFrom().getBlockZ()==(e.getPlayer().getLocation().getBlockZ()) &&
-                        e.getFrom().getWorld()==(e.getPlayer().getWorld())
-                        ){
-                    return;
-                }
+                            l.getBlockY()==(e.getPlayer().getLocation().getBlockY()) &&
+                            l.getBlockZ()==(e.getPlayer().getLocation().getBlockZ()) &&
+                            l.getWorld()==(e.getPlayer().getWorld())
+                    ){
                 startParkour(e.getPlayer(), l);
             }
         }
