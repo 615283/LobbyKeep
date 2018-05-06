@@ -52,17 +52,12 @@ public class ParkourData {
 
     public HashMap<Player, StopWatch> parkourAttempsTimes = new HashMap<Player, StopWatch>();
 
-    public List<Location> getEndPoints() {
-        List<Location> locs = new ArrayList<Location>();
-        for (String s : lk.registeredParkours) {
-            locs.add(new Location(
-                    lk.getServer().getWorld(parkour.getString(s + ".World")),
-                    parkour.getDouble(s + ".End.X"),
-                    parkour.getDouble(s + ".End.Y"),
-                    parkour.getDouble(s + ".End.Z")
-            ));
-        }
-        return locs;
+    public Location getEndFromParkour(String name) {
+        return new Location(
+                    lk.getServer().getWorld(parkour.getString(name + ".World")),
+                    parkour.getDouble(name + ".End.X"),
+                    parkour.getDouble(name + ".End.Y"),
+                    parkour.getDouble(name + ".End.Z"));
     }
 
     public String getParkourByStart(Location l) {
@@ -72,6 +67,20 @@ public class ParkourData {
                     parkour.getDouble(s + ".Start.X"),
                     parkour.getDouble(s + ".Start.Y"),
                     parkour.getDouble(s + ".Start.Z")
+            ).equals(l)) {
+                return s;
+            }
+        }
+        return null;
+    }
+
+    public String getParkourByEnd(Location l) {
+        for (String s : lk.registeredParkours) {
+            if (new Location(
+                    lk.getServer().getWorld(parkour.getString(s + ".World")),
+                    parkour.getDouble(s + ".End.X"),
+                    parkour.getDouble(s + ".End.Y"),
+                    parkour.getDouble(s + ".End.Z")
             ).equals(l)) {
                 return s;
             }

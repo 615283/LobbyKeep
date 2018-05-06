@@ -18,6 +18,22 @@ public class PKMoveListener implements Listener {
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
+        if (lk.getParkourData().parkourAttempts.containsKey(e.getPlayer())) {
+            Location loc = e.getPlayer().getLocation();
+            Location end = lk.getParkourData().getEndFromParkour(lk.getParkourData().parkourAttempts.get(e.getPlayer()));
+            Bukkit.broadcastMessage("" + loc.getBlockX() + "  " + end.getBlockX());
+            Bukkit.broadcastMessage("" + loc.getBlockY() + "  " + end.getBlockY());
+            Bukkit.broadcastMessage("" + loc.getBlockZ() + "  " + end.getBlockZ());
+                if (
+                        end.getBlockX()==(loc.getBlockX()) &&
+                                end.getBlockY()==(loc.getBlockY()) &&
+                                end.getBlockZ()==(loc.getBlockZ()) &&
+                                end.getWorld()==(loc.getWorld())
+                        ){
+                    endParkour(e.getPlayer(), end);
+                }
+        }
+
         if (lk.getParkourData().plocs.containsKey(e.getPlayer())) {
             if (
                     (e.getPlayer().getLocation().getBlockX() == lk.getParkourData().plocs.get(e.getPlayer()).getBlockX()) &&
@@ -40,6 +56,12 @@ public class PKMoveListener implements Listener {
                 startParkour(e.getPlayer(), l);
             }
         }
+    }
+
+    private void endParkour(Player p, Location l) {
+        String pkname = lk.getParkourData().getParkourByEnd(l);
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&5test you finished the parkour mate!"));
+        lk.getParkourData().parkourAttempts.remove(p);
     }
 
     private void startParkour(Player p, Location l) {
