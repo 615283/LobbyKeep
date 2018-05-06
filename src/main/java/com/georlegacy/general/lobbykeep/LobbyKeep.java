@@ -28,6 +28,10 @@ public class LobbyKeep extends JavaPlugin {
         registeredParkours = getParkourData().parkour.getStringList("RegisteredParkourNames");
     }
 
+    public String startmsg = getConfig().getString("PKStartMsg");
+
+    public String endmsg = getConfig().getString("PKEndMsg");
+
     public List<String> registeredParkours;
 
     public boolean diffLevels = getConfig().getBoolean("DiffLevels");

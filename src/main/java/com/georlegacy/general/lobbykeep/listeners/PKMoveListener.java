@@ -57,13 +57,13 @@ public class PKMoveListener implements Listener {
 
     private void endParkour(Player p, Location l) {
         String pkname = lk.getParkourData().getParkourByEnd(l);
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&5test you finished the parkour mate!"));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.endmsg));
         lk.getParkourData().parkourAttempts.remove(p);
     }
 
     private void startParkour(Player p, Location l) {
         String pkname = lk.getParkourData().getParkourByStart(l);
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&5test you started the parkour mate!"));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.startmsg));
         lk.getParkourData().parkourAttempts.put(p, pkname);
         lk.getParkourData().parkourAttempsTimes.put(p, new StopWatch());
     }
