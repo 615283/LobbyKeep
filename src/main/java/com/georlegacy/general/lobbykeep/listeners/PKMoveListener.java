@@ -21,9 +21,6 @@ public class PKMoveListener implements Listener {
         if (lk.getParkourData().parkourAttempts.containsKey(e.getPlayer())) {
             Location loc = e.getPlayer().getLocation();
             Location end = lk.getParkourData().getEndFromParkour(lk.getParkourData().parkourAttempts.get(e.getPlayer()));
-            Bukkit.broadcastMessage("" + loc.getBlockX() + "  " + end.getBlockX());
-            Bukkit.broadcastMessage("" + loc.getBlockY() + "  " + end.getBlockY());
-            Bukkit.broadcastMessage("" + loc.getBlockZ() + "  " + end.getBlockZ());
                 if (
                         end.getBlockX()==(loc.getBlockX()) &&
                                 end.getBlockY()==(loc.getBlockY()) &&
