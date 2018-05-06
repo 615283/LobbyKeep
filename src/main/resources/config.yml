@@ -13,3 +13,9 @@ DiffLevels: false
 # These are the individual levels for different lobby worlds
 # MyWorld: 10
 # MyLovelyLobby: 5
+
+# This is the message that will be broadcast to players when they start a parkour route
+PKStartMsg: 'You have began the parkour! If you fall, return to this point.'
+
+# This is the message that will be broadcast to players when they finish a parkour route
+PKEndMsg: 'You have finished the parkour! If you fall, return to this point.'
