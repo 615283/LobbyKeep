@@ -31,6 +31,14 @@ public class ParkourData {
         parkour = YamlConfiguration.loadConfiguration(new File(lk.getDataFolder() + File.separator + "parkour.yml"));
     }
 
+    public void save() {
+        try {
+            parkour.save(new File(lk.getDataFolder() + File.separator + "parkour.yml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public YamlConfiguration parkour;
 
     public HashMap<Player, Vector> plocs = new HashMap<Player, Vector>();

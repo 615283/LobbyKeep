@@ -18,4 +18,4 @@ DiffLevels: false
 PKStartMsg: '&aYou have began the parkour! If you fall, return to this point.'
 
 # This is the message that will be broadcast to players when they finish a parkour route
-PKEndMsg: '&6You have finished the parkour! If you fall, return to this point.'
+PKEndMsg: '&6You have finished the parkour! To complete it again, first return to the start.'
