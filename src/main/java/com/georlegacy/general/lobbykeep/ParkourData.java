@@ -1,8 +1,7 @@
 package com.georlegacy.general.lobbykeep;
 
-import org.apache.commons.lang.time.StopWatch;
+import com.google.common.base.Stopwatch;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
@@ -57,6 +56,8 @@ public class ParkourData {
     }
 
     public HashMap<Player, String> parkourAttempts = new HashMap<Player, String>();
+
+    public HashMap<Player, Stopwatch> parkourAttemptTimes = new HashMap<Player, Stopwatch>();
 
     public Location getEndFromParkour(String name) {
         return new Location(

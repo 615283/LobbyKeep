@@ -1,6 +1,7 @@
 package com.georlegacy.general.lobbykeep.listeners;
 
 import com.georlegacy.general.lobbykeep.LobbyKeep;
+import com.google.common.base.Stopwatch;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -8,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+
+import java.util.concurrent.TimeUnit;
 
 public class PKMoveListener implements Listener {
     private LobbyKeep lk;
@@ -56,14 +59,24 @@ public class PKMoveListener implements Listener {
 
     private void endParkour(Player p, Location l) {
         String pkname = lk.getParkourData().getParkourByEnd(l);
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.endmsg));
-        lk.getParkourData().parkourAttempts.remove(p);
+        if (lk.getParkourData().parkourAttempts.containsKey(p)) {
+            if (!lk.getParkourData().parkourAttempts.get(p).equals(pkname)) return;
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.endmsg));
+            lk.getParkourData().parkourAttempts.remove(p);
+            Stopwatch timer = lk.getParkourData().parkourAttemptTimes.get(p);
+            lk.getParkourData().parkourAttemptTimes.remove(p);
+            timer.stop();
+            double secs = (double) timer.elapsed(TimeUnit.MILLISECONDS)/1000;
+            lk.getParkourData().parkour.set(pkname + "." + p.getUniqueId().toString(), secs);
+            lk.getParkourData().save();
+        }
     }
 
     private void startParkour(Player p, Location l) {
         String pkname = lk.getParkourData().getParkourByStart(l);
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.startmsg));
         lk.getParkourData().parkourAttempts.put(p, pkname);
+        lk.getParkourData().parkourAttemptTimes.put(p, Stopwatch.createStarted());
     }
 
 }
