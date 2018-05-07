@@ -58,8 +58,6 @@ public class ParkourData {
 
     public HashMap<Player, String> parkourAttempts = new HashMap<Player, String>();
 
-    public HashMap<Player, StopWatch> parkourAttempsTimes = new HashMap<Player, StopWatch>();
-
     public Location getEndFromParkour(String name) {
         return new Location(
                     lk.getServer().getWorld(parkour.getString(name + ".World")),

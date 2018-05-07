@@ -1,7 +1,6 @@
 package com.georlegacy.general.lobbykeep.listeners;
 
 import com.georlegacy.general.lobbykeep.LobbyKeep;
-import org.apache.commons.lang.time.StopWatch;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -65,7 +64,6 @@ public class PKMoveListener implements Listener {
         String pkname = lk.getParkourData().getParkourByStart(l);
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.startmsg));
         lk.getParkourData().parkourAttempts.put(p, pkname);
-        lk.getParkourData().parkourAttempsTimes.put(p, new StopWatch());
     }
 
 }
