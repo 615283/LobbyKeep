@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
 public class PKMoveListener implements Listener {
@@ -66,8 +67,8 @@ public class PKMoveListener implements Listener {
             Stopwatch timer = lk.getParkourData().parkourAttemptTimes.get(p);
             lk.getParkourData().parkourAttemptTimes.remove(p);
             timer.stop();
-            double secs = (double) timer.elapsed(TimeUnit.MILLISECONDS)/1000;
-            lk.getParkourData().parkour.set(pkname + "." + p.getUniqueId().toString(), secs);
+            float secs = (float) timer.elapsed(TimeUnit.MILLISECONDS)/1000F;
+            lk.getParkourData().parkour.set(pkname + "." + p.getUniqueId().toString(), Float.parseFloat(new DecimalFormat("#.#").format(secs)));
             lk.getParkourData().save();
         }
     }
