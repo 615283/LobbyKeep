@@ -68,7 +68,7 @@ public class PKMoveListener implements Listener {
             lk.getParkourData().parkourAttemptTimes.remove(p);
             timer.stop();
             float secs = (float) timer.elapsed(TimeUnit.MILLISECONDS)/1000F;
-            lk.getParkourData().parkour.set(pkname + "." + p.getUniqueId().toString(), Float.parseFloat(new DecimalFormat("#.#").format(secs)));
+            lk.getParkourData().parkour.set(pkname + ".Attempts." + p.getUniqueId().toString(), Float.parseFloat(new DecimalFormat("#.#").format(secs)));
             lk.getParkourData().save();
         }
     }
