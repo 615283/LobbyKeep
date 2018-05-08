@@ -44,7 +44,7 @@ public class ParkourData {
 
     public List<Location> getStartPoints() {
         List<Location> locs = new ArrayList<Location>();
-        for (String s : lk.registeredParkours) {
+        for (String s : lk.registeredParkours()) {
             locs.add(new Location(
                     lk.getServer().getWorld(parkour.getString(s + ".World")),
                     parkour.getDouble(s + ".Start.X"),
@@ -68,7 +68,7 @@ public class ParkourData {
     }
 
     public String getParkourByStart(Location l) {
-        for (String s : lk.registeredParkours) {
+        for (String s : lk.registeredParkours()) {
             if (new Location(
                     lk.getServer().getWorld(parkour.getString(s + ".World")),
                     parkour.getDouble(s + ".Start.X"),
@@ -82,7 +82,7 @@ public class ParkourData {
     }
 
     public String getParkourByEnd(Location l) {
-        for (String s : lk.registeredParkours) {
+        for (String s : lk.registeredParkours()) {
             if (new Location(
                     lk.getServer().getWorld(parkour.getString(s + ".World")),
                     parkour.getDouble(s + ".End.X"),

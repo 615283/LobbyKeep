@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class LobbyKeep extends JavaPlugin {
     private ParkourData parkourData = new ParkourData(this);
@@ -31,30 +32,42 @@ public class LobbyKeep extends JavaPlugin {
         if (!new File(getDataFolder() + File.separator + "config.yml").exists()) {
             saveResource("config.yml", true);
         }
+        reload();
         getParkourData().load();
-        registeredParkours = getParkourData().parkour.getStringList("RegisteredParkourNames");
     }
 
     public void reload() {
         this.getParkourData().parkour = YamlConfiguration.loadConfiguration(new File(this.getDataFolder() + File.separator + "parkour.yml"));
-        startmsg = getConfig().getString("PKStartMsg");
-        endmsg = getConfig().getString("PKEndMsg");
-        registeredParkours = getParkourData().parkour.getStringList("RegisteredParkourNames");
-        diffLevels = getConfig().getBoolean("DiffLevels");
-        level = getConfig().getInt("FallLimit");
-        worlds = getConfig().getStringList("WorldNames");
     }
 
-    public String startmsg = getConfig().getString("PKStartMsg");
+    public String startmsg() {
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
+        return config.getString("PKStartMsg");
+    }
 
-    public String endmsg = getConfig().getString("PKEndMsg");
+    public String endmsg() {
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
+        return config.getString("PKEndMsg");
+    }
 
-    public List<String> registeredParkours;
+    public List<String> registeredParkours() {
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
+        return getParkourData().parkour.getStringList("RegisteredParkourNames");
+    }
 
-    public boolean diffLevels = getConfig().getBoolean("DiffLevels");
+    public boolean diffLevels() {
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
+        return config.getBoolean("DiffLevels");
+    }
 
-    public int level = getConfig().getInt("FallLimit");
+    public int level() {
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
+        return config.getInt("FallLimit");
+    }
 
-    public List<String> worlds = getConfig().getStringList("WorldNames");
+    public List<String> worlds() {
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
+        return config.getStringList("WorldNames");
+    }
 
 }
