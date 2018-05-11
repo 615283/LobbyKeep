@@ -12,13 +12,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class LobbyKeep extends JavaPlugin {
     private ParkourData parkourData = new ParkourData(this);
     public ParkourData getParkourData() {
         return parkourData;
     }
+
+    private YamlConfiguration config;
 
     @Override
     public void onEnable() {
@@ -34,40 +35,31 @@ public class LobbyKeep extends JavaPlugin {
         }
         reload();
         getParkourData().load();
+        registeredParkours = getParkourData().parkour.getStringList("RegisteredParkourNames");
     }
 
     public void reload() {
+        config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
+
         this.getParkourData().parkour = YamlConfiguration.loadConfiguration(new File(this.getDataFolder() + File.separator + "parkour.yml"));
+        startmsg = config.getString("PKStartMsg");
+        endmsg = config.getString("PKEndMsg");
+        registeredParkours = getParkourData().parkour.getStringList("RegisteredParkourNames");
+        diffLevels = config.getBoolean("DiffLevels");
+        level = config.getInt("FallLimit");
+        worlds = config.getStringList("WorldNames");
     }
 
-    public String startmsg() {
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
-        return config.getString("PKStartMsg");
-    }
+    public String startmsg;
 
-    public String endmsg() {
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
-        return config.getString("PKEndMsg");
-    }
+    public String endmsg;
 
-    public List<String> registeredParkours() {
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
-        return getParkourData().parkour.getStringList("RegisteredParkourNames");
-    }
+    public List<String> registeredParkours;
 
-    public boolean diffLevels() {
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
-        return config.getBoolean("DiffLevels");
-    }
+    public boolean diffLevels;
 
-    public int level() {
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
-        return config.getInt("FallLimit");
-    }
+    public int level;
 
-    public List<String> worlds() {
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(getDataFolder() + File.separator + "config.yml"));
-        return config.getStringList("WorldNames");
-    }
+    public List<String> worlds;
 
 }
