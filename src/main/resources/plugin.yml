@@ -8,13 +8,19 @@ commands:
     usage: /<command> <name> <startX> <startY> <startZ> <endX> <endY> <endZ>
     permission: lobbykeep.parkour.create
     description: Creates a new parkour route
+  pktop:
+    usage: /<command> <parkourname>
+    permission: lobbykeep.parkour.top
+    description: Lists the best times for the parkour
   lkreload:
     usage: /<command>
     permission: lobbykeep.reload
-    description: Relaods the config(s)
+    description: Reloads the config(s)
 
 permissions:
   lobbykeep.parkour.create:
     default: op
+  lobbykeep.parkour.top:
+    default: true
   lobbykeep.reload:
     default: op

@@ -3,6 +3,7 @@
 package com.georlegacy.general.lobbykeep;
 
 import com.georlegacy.general.lobbykeep.commands.ParkourCreateCommand;
+import com.georlegacy.general.lobbykeep.commands.ParkourTopCommand;
 import com.georlegacy.general.lobbykeep.commands.ReloadCommand;
 import com.georlegacy.general.lobbykeep.listeners.FallListener;
 import com.georlegacy.general.lobbykeep.listeners.PKMoveListener;
@@ -29,6 +30,7 @@ public class LobbyKeep extends JavaPlugin {
 
         getCommand("pkcreate").setExecutor(new ParkourCreateCommand(this));
         getCommand("lkreload").setExecutor(new ReloadCommand(this));
+        getCommand("pktop").setExecutor(new ParkourTopCommand(this));
 
         if (!new File(getDataFolder() + File.separator + "config.yml").exists()) {
             saveResource("config.yml", true);
