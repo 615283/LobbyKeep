@@ -19,7 +19,7 @@ public class FallListener implements Listener {
     @EventHandler
     public void onFall(PlayerMoveEvent e) {
         Player p = e.getPlayer();
-        for (String worldName : lk.worlds()) {
+        for (String worldName : lk.worlds) {
             if (p.getWorld().getName().equals(worldName)) execute(p, p.getWorld());
         }
     }
@@ -28,8 +28,8 @@ public class FallListener implements Listener {
         Location location = w.getSpawnLocation();
         location.setX(location.getBlockX()+0.5);
         location.setZ(location.getBlockZ()+0.5);
-        if (!lk.diffLevels()) {
-            if (p.getLocation().getBlockY()<lk.level()) {
+        if (!lk.diffLevels) {
+            if (p.getLocation().getBlockY()<lk.level) {
                 p.teleport(location);
                 p.playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 1, 1.25F);
             } else return;

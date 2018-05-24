@@ -62,7 +62,7 @@ public class PKMoveListener implements Listener {
         String pkname = lk.getParkourData().getParkourByEnd(l);
         if (lk.getParkourData().parkourAttempts.containsKey(p)) {
             if (!lk.getParkourData().parkourAttempts.get(p).equals(pkname)) return;
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.endmsg()));
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.endmsg));
             lk.getParkourData().parkourAttempts.remove(p);
             Stopwatch timer = lk.getParkourData().parkourAttemptTimes.get(p);
             lk.getParkourData().parkourAttemptTimes.remove(p);
@@ -75,7 +75,7 @@ public class PKMoveListener implements Listener {
 
     private void startParkour(Player p, Location l) {
         String pkname = lk.getParkourData().getParkourByStart(l);
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.startmsg()));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.startmsg));
         lk.getParkourData().parkourAttempts.put(p, pkname);
         lk.getParkourData().parkourAttemptTimes.put(p, Stopwatch.createStarted());
     }

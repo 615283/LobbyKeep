@@ -7,6 +7,8 @@ import com.georlegacy.general.lobbykeep.commands.ParkourTopCommand;
 import com.georlegacy.general.lobbykeep.commands.ReloadCommand;
 import com.georlegacy.general.lobbykeep.listeners.FallListener;
 import com.georlegacy.general.lobbykeep.listeners.PKMoveListener;
+import com.georlegacy.general.lobbykeep.listeners.UserJoin;
+import com.georlegacy.general.lobbykeep.util.UserManager;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,6 +22,9 @@ public class LobbyKeep extends JavaPlugin {
         return parkourData;
     }
 
+    private UserManager userManager = new UserManager(this);
+    public UserManager getUserManager() { return userManager; }
+
     private YamlConfiguration config;
 
     @Override
@@ -27,6 +32,7 @@ public class LobbyKeep extends JavaPlugin {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new FallListener(this), this);
         pm.registerEvents(new PKMoveListener(this), this);
+        pm.registerEvents(new UserJoin(this), this);
 
         getCommand("pkcreate").setExecutor(new ParkourCreateCommand(this));
         getCommand("lkreload").setExecutor(new ReloadCommand(this));
@@ -35,9 +41,17 @@ public class LobbyKeep extends JavaPlugin {
         if (!new File(getDataFolder() + File.separator + "config.yml").exists()) {
             saveResource("config.yml", true);
         }
+
+        getUserManager().load();
+
         reload();
         getParkourData().load();
         registeredParkours = getParkourData().parkour.getStringList("RegisteredParkourNames");
+    }
+
+    @Override
+    public void onDisable() {
+        getUserManager().save();
     }
 
     public void reload() {
