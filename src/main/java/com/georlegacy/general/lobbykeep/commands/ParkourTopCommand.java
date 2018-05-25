@@ -6,7 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import java.util.HashMap;
+import java.util.*;
 
 public class ParkourTopCommand implements CommandExecutor {
     private LobbyKeep lk;
@@ -27,7 +27,7 @@ public class ParkourTopCommand implements CommandExecutor {
         HashMap<String, Double> times = new HashMap<String, Double>();
         for (String key : lk.getParkourData().parkour.getKeys(true)) {
             System.out.println(key.replace(args[0] + ".Attempts.", ""));
-            if (!key.startsWith(args[0] + ".Attempts")) {
+            if (!key.startsWith(args[0] + ".Attempts.")) {
                 continue;
             }
             System.out.println(lk.getUserManager().getFromUUID(key.replace(args[0] + ".Attempts.", "")));
@@ -37,12 +37,21 @@ public class ParkourTopCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &cThere have not been any attempts as of yet on this parkour."));
             return true;
         }
+
+        List<Map.Entry<String, Double>> sortedTimes = new LinkedList<Map.Entry<String, Double>>(times.entrySet());
+        Collections.sort(sortedTimes, new Comparator<Map.Entry<String, Double>>() {
+            @Override
+            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+                return o1.getValue().compareTo(o2.getValue());
+            }
+        });
+
         int i = 1;
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &bReading top 10 times"));
-        for (String pname : times.keySet()) {
-            System.out.println(pname);
-            System.out.println(times.get(pname));
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a" + i + ". &e" + pname + "&7: &e" + times.get(pname)));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2&l&m---&2&l[ &aTop 10 Times &2&l]&2&l&m---"));
+        for (Map.Entry<String, Double> entry : sortedTimes) {
+            System.out.println(entry.getKey());
+            System.out.println(times.get(entry.getKey()));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2" + i + ". &a" + entry.getKey() + "&7: &a" + entry.getValue()));
             i++;
             if (i>10) break;
         }
