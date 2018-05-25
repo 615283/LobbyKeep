@@ -20,13 +20,20 @@ public class ParkourTopCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &cYou have provided incorrect arguments. Correct usage is &7/pktop <parkour>"));
             return true;
         }
-        if (!lk.registeredParkours.contains(args[0])) {
+        boolean is = false;
+        for (String rpn : lk.registeredParkours) {
+            if (rpn.toLowerCase().equals(args[0].toLowerCase())) {
+                is = true;
+                break;
+            }
+        }
+        if (!is) {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| " + args[0] + " &cdoesn't appear to be a valid parkour. Please try again."));
             return true;
         }
         HashMap<String, Double> times = new HashMap<String, Double>();
         for (String key : lk.getParkourData().parkour.getKeys(true)) {
-            if (!key.startsWith(args[0] + ".Attempts.")) {
+            if (!key.toLowerCase().startsWith(args[0].toLowerCase() + ".Attempts.")) {
                 continue;
             }
             times.put(lk.getUserManager().getFromUUID(key.replaceFirst(args[0] + ".Attempts.", "")), lk.getParkourData().parkour.getDouble(key));
