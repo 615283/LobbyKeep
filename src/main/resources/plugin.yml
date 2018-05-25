@@ -16,6 +16,10 @@ commands:
     usage: /<command>
     permission: lobbykeep.parkour.list
     description: Lists all parkour routes
+  pkstart:
+    usage: /<command> <parkourname>
+    permission: lobbykeep.parkour.start
+    description: Starts a parkour route
   lkreload:
     usage: /<command>
     permission: lobbykeep.reload
@@ -27,6 +31,8 @@ permissions:
   lobbykeep.parkour.top:
     default: true
   lobbykeep.parkour.list:
-    deafult: true
+    default: true
+  lobbykeep.parkour.start:
+    default: true
   lobbykeep.reload:
     default: op
