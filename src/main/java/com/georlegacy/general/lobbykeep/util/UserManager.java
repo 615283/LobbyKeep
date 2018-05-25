@@ -16,7 +16,6 @@ public class UserManager {
 
     public void load() {
         users = new HashMap<String, String>();
-        System.out.println("loading");
         File f = new File(lk.getDataFolder() + File.separator + "users.dat");
         ObjectInputStream ois;
         if (!f.exists()) {
@@ -43,20 +42,16 @@ public class UserManager {
 
     public void save() {
         System.out.println(users);
-        System.out.println("saving");
         File f = new File(lk.getDataFolder() + File.separator + "users.dat");
         ObjectOutputStream oos;
         if (!f.exists()) {
-            System.out.println("file !exist");
             try {
                 f.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("past 1 if");
         if (users == null) return;
-        System.out.println("users nn");
         try {
             oos = new ObjectOutputStream(new FileOutputStream(f));
             oos.reset();
@@ -70,12 +65,10 @@ public class UserManager {
 
     public void add(Player p) {
         users.put(p.getUniqueId().toString(), p.getName());
-        System.out.println(users);
     }
 
     public String getFromUUID(String uuid) {
         System.out.println("getting from uuid");
-        System.out.println(users);
         return users.get(uuid);
     }
 

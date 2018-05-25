@@ -26,11 +26,9 @@ public class ParkourTopCommand implements CommandExecutor {
         }
         HashMap<String, Double> times = new HashMap<String, Double>();
         for (String key : lk.getParkourData().parkour.getKeys(true)) {
-            System.out.println(key.replace(args[0] + ".Attempts.", ""));
             if (!key.startsWith(args[0] + ".Attempts.")) {
                 continue;
             }
-            System.out.println(lk.getUserManager().getFromUUID(key.replace(args[0] + ".Attempts.", "")));
             times.put(lk.getUserManager().getFromUUID(key.replaceFirst(args[0] + ".Attempts.", "")), lk.getParkourData().parkour.getDouble(key));
         }
         if (times.isEmpty()) {
@@ -49,8 +47,6 @@ public class ParkourTopCommand implements CommandExecutor {
         int i = 1;
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2&l&m---&2&l[ &aTop 10 Times &2&l]&2&l&m---"));
         for (Map.Entry<String, Double> entry : sortedTimes) {
-            System.out.println(entry.getKey());
-            System.out.println(times.get(entry.getKey()));
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2" + i + ". &a" + entry.getKey() + "&7: &a" + entry.getValue()));
             i++;
             if (i>10) break;
