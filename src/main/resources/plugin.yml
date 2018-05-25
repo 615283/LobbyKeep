@@ -1,6 +1,6 @@
 name: LobbyKeep
 author: 615283
-description: Stops people falling into the void.
+description: Plugin for server lobbies.
 version: ${project.version}
 main: com.georlegacy.general.lobbykeep.LobbyKeep
 commands:
@@ -12,6 +12,10 @@ commands:
     usage: /<command> <parkourname>
     permission: lobbykeep.parkour.top
     description: Lists the best times for the parkour
+  pklist:
+    usage: /<command>
+    permission: lobbykeep.parkour.list
+    description: Lists all parkour routes
   lkreload:
     usage: /<command>
     permission: lobbykeep.reload
@@ -22,5 +26,7 @@ permissions:
     default: op
   lobbykeep.parkour.top:
     default: true
+  lobbykeep.parkour.list:
+    deafult: true
   lobbykeep.reload:
     default: op
