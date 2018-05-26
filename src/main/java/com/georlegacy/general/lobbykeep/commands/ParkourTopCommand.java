@@ -35,29 +35,24 @@ public class ParkourTopCommand implements CommandExecutor {
             return true;
         }
         HashMap<String, Double> times = new HashMap<String, Double>();
-        System.out.println(times);
         for (String key : lk.getParkourData().parkour.getKeys(true)) {
             if (!key.startsWith(pkn + ".Attempts.")) {
                 continue;
             }
-            System.out.println(lk.getParkourData().parkour.getDouble(key));
             times.put(lk.getUserManager().getFromUUID(key.replaceFirst(args[0] + ".Attempts.", "")), Double.parseDouble(new DecimalFormat("#.#").format(lk.getParkourData().parkour.getDouble(key))));
         }
-        System.out.println(times);
         if (times.isEmpty()) {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &cThere have not been any attempts as of yet on this parkour."));
             return true;
         }
 
         List<Map.Entry<String, Double>> sortedTimes = new LinkedList<Map.Entry<String, Double>>(times.entrySet());
-        System.out.println(sortedTimes);
         Collections.sort(sortedTimes, new Comparator<Map.Entry<String, Double>>() {
             @Override
             public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
                 return o1.getValue().compareTo(o2.getValue());
             }
         });
-        System.out.println(sortedTimes);
 
         int i = 1;
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2&l&m---&2&l[ &aTop 10 Times &2&l]&2&l&m---"));

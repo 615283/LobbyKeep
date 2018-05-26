@@ -73,7 +73,7 @@ public class PKMoveListener implements Listener {
             fireworkMeta.addEffect(FireworkEffect.builder().trail(true).withColor(Color.GREEN, Color.LIME, Color.OLIVE).flicker(true).with(FireworkEffect.Type.BALL_LARGE).build());
             firework.setFireworkMeta(fireworkMeta);
             p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-            p.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, p.getLocation(), 1);
+            p.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, p.getLocation(), 25);
             if (lk.getParkourData().parkour.getDouble(pkname + ".Attempts." + p.getUniqueId().toString()) > Float.parseFloat(new DecimalFormat("#.#").format(secs))) {
                 lk.getParkourData().parkour.set(pkname + ".Attempts." + p.getUniqueId().toString(), Float.parseFloat(new DecimalFormat("#.#").format(secs)));
             }

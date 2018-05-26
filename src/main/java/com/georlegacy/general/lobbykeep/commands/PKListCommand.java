@@ -31,8 +31,6 @@ public class PKListCommand implements CommandExecutor {
             sender.spigot().sendMessage(text);
             i++;
         }
-
-
-        return false;
+        return true;
     }
 }
