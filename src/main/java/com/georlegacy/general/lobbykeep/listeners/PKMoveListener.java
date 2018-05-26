@@ -2,13 +2,13 @@ package com.georlegacy.general.lobbykeep.listeners;
 
 import com.georlegacy.general.lobbykeep.LobbyKeep;
 import com.google.common.base.Stopwatch;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
+import org.bukkit.*;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.meta.FireworkMeta;
 
 import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
@@ -62,19 +62,29 @@ public class PKMoveListener implements Listener {
         String pkname = lk.getParkourData().getParkourByEnd(l);
         if (lk.getParkourData().parkourAttempts.containsKey(p)) {
             if (!lk.getParkourData().parkourAttempts.get(p).equals(pkname)) return;
-            p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.endmsg));
             lk.getParkourData().parkourAttempts.remove(p);
             Stopwatch timer = lk.getParkourData().parkourAttemptTimes.get(p);
             lk.getParkourData().parkourAttemptTimes.remove(p);
             timer.stop();
             float secs = (float) timer.elapsed(TimeUnit.MILLISECONDS)/1000F;
-            lk.getParkourData().parkour.set(pkname + ".Attempts." + p.getUniqueId().toString(), Float.parseFloat(new DecimalFormat("#.#").format(secs)));
+            Firework firework = (Firework) p.getWorld().spawn(p.getLocation(), Firework.class);
+            FireworkMeta fireworkMeta = firework.getFireworkMeta();
+            fireworkMeta.setPower(0);
+            fireworkMeta.addEffect(FireworkEffect.builder().trail(true).withColor(Color.GREEN, Color.LIME, Color.OLIVE).flicker(true).with(FireworkEffect.Type.BALL_LARGE).build());
+            firework.setFireworkMeta(fireworkMeta);
+            p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+            p.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, p.getLocation(), 1);
+            if (lk.getParkourData().parkour.getDouble(pkname + ".Attempts." + p.getUniqueId().toString()) > Float.parseFloat(new DecimalFormat("#.#").format(secs))) {
+                lk.getParkourData().parkour.set(pkname + ".Attempts." + p.getUniqueId().toString(), Float.parseFloat(new DecimalFormat("#.#").format(secs)));
+            }
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format(lk.endmsg, new DecimalFormat("#.#").format(secs))));
             lk.getParkourData().save();
         }
     }
 
     private void startParkour(Player p, Location l) {
         String pkname = lk.getParkourData().getParkourByStart(l);
+        p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 1);
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.startmsg));
         lk.getParkourData().parkourAttempts.put(p, pkname);
         lk.getParkourData().parkourAttemptTimes.put(p, Stopwatch.createStarted());
