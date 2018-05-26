@@ -1,6 +1,7 @@
 package com.georlegacy.general.lobbykeep.listeners;
 
 import com.georlegacy.general.lobbykeep.LobbyKeep;
+import com.georlegacy.general.lobbykeep.util.ActionBarTimer;
 import com.google.common.base.Stopwatch;
 import org.bukkit.*;
 import org.bukkit.entity.Firework;
@@ -79,6 +80,7 @@ public class PKMoveListener implements Listener {
             } else if (lk.getParkourData().parkour.getDouble(pkname + ".Attempts." + p.getUniqueId().toString()) > Float.parseFloat(new DecimalFormat("#.#").format(secs))) {
                 lk.getParkourData().parkour.set(pkname + ".Attempts." + p.getUniqueId().toString(), Float.parseFloat(new DecimalFormat("#.#").format(secs)));
             }
+            lk.getParkourData().abts.get(p).stop();
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format(lk.endmsg, new DecimalFormat("#.#").format(secs))));
             lk.getParkourData().save();
         }
@@ -90,6 +92,7 @@ public class PKMoveListener implements Listener {
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.startmsg));
         lk.getParkourData().parkourAttempts.put(p, pkname);
         lk.getParkourData().parkourAttemptTimes.put(p, Stopwatch.createStarted());
+        lk.getParkourData().abts.put(p, new ActionBarTimer(p));
     }
 
 }

@@ -1,5 +1,6 @@
 package com.georlegacy.general.lobbykeep;
 
+import com.georlegacy.general.lobbykeep.util.ActionBarTimer;
 import com.google.common.base.Stopwatch;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -37,6 +38,8 @@ public class ParkourData {
             e.printStackTrace();
         }
     }
+
+    public HashMap<Player, ActionBarTimer> abts = new HashMap<Player, ActionBarTimer>();
 
     public YamlConfiguration parkour;
 
