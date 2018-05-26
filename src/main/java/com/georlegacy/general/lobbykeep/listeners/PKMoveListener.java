@@ -74,7 +74,9 @@ public class PKMoveListener implements Listener {
             firework.setFireworkMeta(fireworkMeta);
             p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
             p.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, p.getLocation(), 25);
-            if (lk.getParkourData().parkour.getDouble(pkname + ".Attempts." + p.getUniqueId().toString()) > Float.parseFloat(new DecimalFormat("#.#").format(secs))) {
+            if (lk.getParkourData().parkour.getKeys(true).contains(pkname + ".Attempts." + p.getUniqueId().toString())) {
+                lk.getParkourData().parkour.set(pkname + ".Attempts." + p.getUniqueId().toString(), Float.parseFloat(new DecimalFormat("#.#").format(secs)));
+            } else if (lk.getParkourData().parkour.getDouble(pkname + ".Attempts." + p.getUniqueId().toString()) > Float.parseFloat(new DecimalFormat("#.#").format(secs))) {
                 lk.getParkourData().parkour.set(pkname + ".Attempts." + p.getUniqueId().toString(), Float.parseFloat(new DecimalFormat("#.#").format(secs)));
             }
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format(lk.endmsg, new DecimalFormat("#.#").format(secs))));
