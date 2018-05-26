@@ -1,0 +1,15 @@
+RegisteredParkourNames:
+- MinigameHub
+MinigameHub:
+  World: MiniGameHub
+  Start:
+    X: -12
+    Y: 64
+    Z: -13
+  End:
+    X: -6
+    Y: 169
+    Z: 20
+  Attempts:  
+    359bde8f-2a1c-4530-a874-3f8d1d789c37: 128.2
+    5ebf3afb-480d-490f-9cd2-4f192dee282a: 231.0
