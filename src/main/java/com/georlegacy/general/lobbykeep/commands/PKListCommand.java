@@ -18,7 +18,7 @@ public class PKListCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2&l&m---&2&l[ &aParkours &2&l]&2&l&m---"));
         if (sender.hasPermission("lobbykeep.parkour.start")) {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&2&l&m--&2&l[ &aClick below to start a parkour &2&l]&2&l&m--"));
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7(Click below to begin a parkour)"));
         }
 
         int i = 0;
