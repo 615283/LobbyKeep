@@ -30,7 +30,6 @@ public class UserManager {
         try {
             ois = new ObjectInputStream(new FileInputStream(f));
             users = (HashMap<String, String>) ois.readUnshared();
-            System.out.println(users);
             ois.close();
         }
         catch (IOException e) {
@@ -41,7 +40,6 @@ public class UserManager {
     }
 
     public void save() {
-        System.out.println(users);
         File f = new File(lk.getDataFolder() + File.separator + "users.dat");
         ObjectOutputStream oos;
         if (!f.exists()) {
@@ -68,7 +66,6 @@ public class UserManager {
     }
 
     public String getFromUUID(String uuid) {
-        System.out.println("getting from uuid");
         return users.get(uuid);
     }
 

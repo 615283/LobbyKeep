@@ -39,7 +39,7 @@ public class ParkourTopCommand implements CommandExecutor {
             if (!key.startsWith(pkn + ".Attempts.")) {
                 continue;
             }
-            times.put(lk.getUserManager().getFromUUID(key.replaceFirst(args[0] + ".Attempts.", "")), Double.parseDouble(new DecimalFormat("#.#").format(lk.getParkourData().parkour.getDouble(key))));
+            times.put(lk.getUserManager().getFromUUID(key.replaceFirst(pkn + ".Attempts.", "")), Double.parseDouble(new DecimalFormat("#.#").format(lk.getParkourData().parkour.getDouble(key))));
         }
         if (times.isEmpty()) {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &cThere have not been any attempts as of yet on this parkour."));
