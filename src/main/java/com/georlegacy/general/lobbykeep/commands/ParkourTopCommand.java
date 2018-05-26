@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -61,7 +62,9 @@ public class ParkourTopCommand implements CommandExecutor {
             i++;
             if (i>10) break;
         }
+        if (sender instanceof Player) {
 
+        }
         times.clear();
         sortedTimes.clear();
         return true;
