@@ -19,7 +19,6 @@ public class ActionBarTimer implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("in runnable duh");
 
         TextComponent prefix = new TextComponent("Current Time: ");
         prefix.setColor(ChatColor.DARK_GREEN);
