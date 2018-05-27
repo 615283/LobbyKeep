@@ -1,6 +1,8 @@
 package com.georlegacy.general.lobbykeep.listeners;
 
 import com.georlegacy.general.lobbykeep.LobbyKeep;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
@@ -16,6 +18,8 @@ public class WorldChangeResetListener implements Listener {
         if (lk.getParkourData().parkourAttempts.containsKey(e.getPlayer())) {
             lk.getParkourData().parkourAttempts.remove(e.getPlayer());
             lk.getParkourData().parkourAttemptTimes.remove(e.getPlayer());
+            Bukkit.getServer().getScheduler().cancelTask(lk.getParkourData().abts.get(e.getPlayer()));
+
             lk.getLogger().info(e.getPlayer().getName() + " has changed worlds mid-parkour-attempt. The parkour attempt has been cancelled successfully.");
         }
     }
