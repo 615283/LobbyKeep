@@ -3,6 +3,8 @@ package com.georlegacy.general.lobbykeep.listeners;
 import com.georlegacy.general.lobbykeep.LobbyKeep;
 import com.georlegacy.general.lobbykeep.util.ActionBarTimer;
 import com.google.common.base.Stopwatch;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
@@ -83,6 +85,10 @@ public class PKMoveListener implements Listener {
             }
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format(lk.endmsg, new DecimalFormat("#.#").format(secs))));
             lk.getParkourData().save();
+            TextComponent finish = new TextComponent("Congratulations!");
+            finish.setBold(true);
+            finish.setColor(net.md_5.bungee.api.ChatColor.DARK_RED);
+            p.spigot().sendMessage(ChatMessageType.ACTION_BAR, finish);
         }
     }
 
