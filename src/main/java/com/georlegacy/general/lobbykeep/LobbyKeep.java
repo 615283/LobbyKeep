@@ -38,6 +38,7 @@ public class LobbyKeep extends JavaPlugin {
         getCommand("lkreload").setExecutor(new ReloadCommand(this));
         getCommand("pktop").setExecutor(new ParkourTopCommand(this));
         getCommand("pkstart").setExecutor(new PKStartCommand(this));
+        getCommand("pkstop").setExecutor(new PKStopCommand(this));
         getCommand("pklist").setExecutor(new PKListCommand(this));
 
         if (!new File(getDataFolder() + File.separator + "config.yml").exists()) {

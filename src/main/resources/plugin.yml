@@ -20,6 +20,9 @@ commands:
     usage: /<command> <parkourname>
     permission: lobbykeep.parkour.start
     description: Starts a parkour route
+  pkstop:
+    usage: /<command>
+    description: Halts the current attempt
   lkreload:
     usage: /<command>
     permission: lobbykeep.reload
