@@ -93,6 +93,9 @@ public class PKMoveListener implements Listener {
     }
 
     private void startParkour(Player p, Location l) {
+        if (lk.getParkourData().abts.containsKey(p)) {
+            Bukkit.getServer().getScheduler().cancelTask(lk.getParkourData().abts.get(p));
+        }
         String pkname = lk.getParkourData().getParkourByStart(l);
         p.playSound(p.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 1);
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.startmsg));
