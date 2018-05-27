@@ -1,6 +1,8 @@
 package com.georlegacy.general.lobbykeep.commands;
 
 import com.georlegacy.general.lobbykeep.LobbyKeep;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -25,7 +27,9 @@ public class PKStartCommand implements CommandExecutor {
             String pkn = lk.getParkourData().parkourAttempts.get((Player) sender);Bukkit.getServer().getScheduler().cancelTask(lk.getParkourData().abts.get((Player) sender));
             lk.getParkourData().parkourAttempts.remove((Player) sender);
             lk.getParkourData().parkourAttemptTimes.remove((Player) sender);
-            
+            TextComponent empty = new TextComponent("");
+            ((Player) sender).spigot().sendMessage(ChatMessageType.ACTION_BAR, empty);
+
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &aSending you to &2" + pkn));
             Location start = new Location(
                     Bukkit.getServer().getWorld(lk.getParkourData().parkour.getString(pkn + ".World")),

@@ -1,6 +1,8 @@
 package com.georlegacy.general.lobbykeep.commands;
 
 import com.georlegacy.general.lobbykeep.LobbyKeep;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -23,6 +25,8 @@ public class PKStopCommand implements CommandExecutor {
         Bukkit.getServer().getScheduler().cancelTask(lk.getParkourData().abts.get((Player) sender));
         lk.getParkourData().parkourAttempts.remove((Player) sender);
         lk.getParkourData().parkourAttemptTimes.remove((Player) sender);
+        TextComponent empty = new TextComponent("");
+        ((Player) sender).spigot().sendMessage(ChatMessageType.ACTION_BAR, empty);
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &aYour current parkour attempt has been cancelled successfully."));
         return true;
     }
