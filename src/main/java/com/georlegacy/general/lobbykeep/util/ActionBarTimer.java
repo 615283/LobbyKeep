@@ -1,43 +1,35 @@
 package com.georlegacy.general.lobbykeep.util;
 
-import com.google.common.base.Stopwatch;
+import com.georlegacy.general.lobbykeep.LobbyKeep;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 
+import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
-public class ActionBarTimer {
-    Player p;
-    Stopwatch s = Stopwatch.createUnstarted();
-
-    public ActionBarTimer(Player p) {
+public class ActionBarTimer implements Runnable {
+    private LobbyKeep lk;
+    private Player p;
+    public ActionBarTimer(Player p, LobbyKeep lk) {
         this.p = p;
-        s.start();
-        send();
+        this.lk = lk;
     }
 
-    private void send() {
-        if (!s.isRunning()) {
-            return;
-        }
-        while (s.isRunning()) {
-            TextComponent prefix = new TextComponent("");
+    @Override
+    public void run() {
+        TextComponent prefix = new TextComponent("Current Time: ");
+        prefix.setColor(ChatColor.DARK_GREEN);
+        prefix.setBold(true);
 
-            TextComponent time = new TextComponent("" + s.elapsed(TimeUnit.SECONDS));
-            time.setBold(true);
-            time.setColor(ChatColor.GREEN);
+        TextComponent time = new TextComponent(new DecimalFormat("#.#").format((float) lk.getParkourData().parkourAttemptTimes.get(p).elapsed(TimeUnit.MILLISECONDS)/1000F));
+        time.setBold(true);
+        time.setColor(ChatColor.GREEN);
 
-            TextComponent suffix = new TextComponent("");
+        TextComponent suffix = new TextComponent("");
 
-            p.spigot().sendMessage(ChatMessageType.ACTION_BAR, prefix, time, suffix);
-            try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
-        }
-    }
-
-    public void stop() {
-        s.stop();
+        p.spigot().sendMessage(ChatMessageType.ACTION_BAR, prefix, time, suffix);
     }
 
 }

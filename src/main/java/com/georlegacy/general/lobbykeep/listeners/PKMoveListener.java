@@ -80,7 +80,7 @@ public class PKMoveListener implements Listener {
             } else if (lk.getParkourData().parkour.getDouble(pkname + ".Attempts." + p.getUniqueId().toString()) > Float.parseFloat(new DecimalFormat("#.#").format(secs))) {
                 lk.getParkourData().parkour.set(pkname + ".Attempts." + p.getUniqueId().toString(), Float.parseFloat(new DecimalFormat("#.#").format(secs)));
             }
-            lk.getParkourData().abts.get(p).stop();
+            Bukkit.getServer().getScheduler().cancelTask(lk.getParkourData().abts.get(p));
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format(lk.endmsg, new DecimalFormat("#.#").format(secs))));
             lk.getParkourData().save();
         }
@@ -92,7 +92,8 @@ public class PKMoveListener implements Listener {
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', lk.startmsg));
         lk.getParkourData().parkourAttempts.put(p, pkname);
         lk.getParkourData().parkourAttemptTimes.put(p, Stopwatch.createStarted());
-        lk.getParkourData().abts.put(p, new ActionBarTimer(p));
+        Integer abtid = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(lk, new ActionBarTimer(p, lk), 0L, 2L);
+        lk.getParkourData().abts.put(p, abtid);
     }
 
 }

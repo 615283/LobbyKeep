@@ -39,7 +39,7 @@ public class ParkourData {
         }
     }
 
-    public HashMap<Player, ActionBarTimer> abts = new HashMap<Player, ActionBarTimer>();
+    public HashMap<Player, Integer> abts = new HashMap<Player, Integer>( );
 
     public YamlConfiguration parkour;
 
