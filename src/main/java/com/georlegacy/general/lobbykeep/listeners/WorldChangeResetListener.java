@@ -16,9 +16,9 @@ public class WorldChangeResetListener implements Listener {
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent e) {
         if (lk.getParkourData().parkourAttempts.containsKey(e.getPlayer())) {
+            Bukkit.getServer().getScheduler().cancelTask(lk.getParkourData().abts.get(e.getPlayer()));
             lk.getParkourData().parkourAttempts.remove(e.getPlayer());
             lk.getParkourData().parkourAttemptTimes.remove(e.getPlayer());
-            Bukkit.getServer().getScheduler().cancelTask(lk.getParkourData().abts.get(e.getPlayer()));
 
             lk.getLogger().info(e.getPlayer().getName() + " has changed worlds mid-parkour-attempt. The parkour attempt has been cancelled successfully.");
         }

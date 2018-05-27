@@ -20,9 +20,9 @@ public class PKStopCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &cYou don't currently appear to be attempting any parkour."));
             return true;
         }
+        Bukkit.getServer().getScheduler().cancelTask(lk.getParkourData().abts.get((Player) sender));
         lk.getParkourData().parkourAttempts.remove((Player) sender);
         lk.getParkourData().parkourAttemptTimes.remove((Player) sender);
-        Bukkit.getServer().getScheduler().cancelTask(lk.getParkourData().abts.get((Player) sender));
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &aYour current parkour attempt has been cancelled successfully."));
         return true;
     }

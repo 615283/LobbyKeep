@@ -8,7 +8,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerJoinEvent;
 
 public class PKStartCommand implements CommandExecutor {
     private LobbyKeep lk;
@@ -18,14 +17,31 @@ public class PKStartCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length==0) {
+            if (!lk.getParkourData().parkourAttempts.containsKey((Player) sender)) {
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &cYou are not currently attempting a parkour. To start one, use &7/pkstart <parkour>"));
+                return true;
+            }
+            String pkn = lk.getParkourData().parkourAttempts.get((Player) sender);
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &aSending you to &2" + pkn));
+            Location start = new Location(
+                    Bukkit.getServer().getWorld(lk.getParkourData().parkour.getString(pkn + ".World")),
+                    lk.getParkourData().parkour.getInt(pkn + ".Start.X"),
+                    lk.getParkourData().parkour.getInt(pkn + ".Start.Y"),
+                    lk.getParkourData().parkour.getInt(pkn + ".Start.Z"));
+            ((Player) sender).teleport(start);
+            return true;
+        }
         if (args.length!=1) {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &cYou have provided incorrect arguments. Correct usage is &7/pkstart <parkour>"));
             return true;
         }
         boolean is = false;
+        String pkn = null;
         for (String rpn : lk.registeredParkours) {
             if (rpn.toLowerCase().equals(args[0].toLowerCase())) {
                 is = true;
+                pkn = rpn;
                 break;
             }
         }
@@ -33,11 +49,12 @@ public class PKStartCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| " + args[0] + " &cdoesn't appear to be a valid parkour. Please try again."));
             return true;
         }
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &aSending you to &2" + pkn));
         Location start = new Location(
-                Bukkit.getServer().getWorld(lk.getParkourData().parkour.getString(args[0] + ".World")),
-                lk.getParkourData().parkour.getInt(args[0] + ".Start.X"),
-                lk.getParkourData().parkour.getInt(args[0] + ".Start.Y"),
-                lk.getParkourData().parkour.getInt(args[0] + ".Start.Z"));
+                Bukkit.getServer().getWorld(lk.getParkourData().parkour.getString(pkn + ".World")),
+                lk.getParkourData().parkour.getInt(pkn + ".Start.X"),
+                lk.getParkourData().parkour.getInt(pkn + ".Start.Y"),
+                lk.getParkourData().parkour.getInt(pkn + ".Start.Z"));
         ((Player) sender).teleport(start);
         return true;
     }

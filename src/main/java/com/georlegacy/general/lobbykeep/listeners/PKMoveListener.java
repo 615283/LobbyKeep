@@ -63,6 +63,7 @@ public class PKMoveListener implements Listener {
         String pkname = lk.getParkourData().getParkourByEnd(l);
         if (lk.getParkourData().parkourAttempts.containsKey(p)) {
             if (!lk.getParkourData().parkourAttempts.get(p).equals(pkname)) return;
+            Bukkit.getServer().getScheduler().cancelTask(lk.getParkourData().abts.get(p));
             lk.getParkourData().parkourAttempts.remove(p);
             Stopwatch timer = lk.getParkourData().parkourAttemptTimes.get(p);
             lk.getParkourData().parkourAttemptTimes.remove(p);
@@ -80,7 +81,6 @@ public class PKMoveListener implements Listener {
             } else if (lk.getParkourData().parkour.getDouble(pkname + ".Attempts." + p.getUniqueId().toString()) > Float.parseFloat(new DecimalFormat("#.#").format(secs))) {
                 lk.getParkourData().parkour.set(pkname + ".Attempts." + p.getUniqueId().toString(), Float.parseFloat(new DecimalFormat("#.#").format(secs)));
             }
-            Bukkit.getServer().getScheduler().cancelTask(lk.getParkourData().abts.get(p));
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format(lk.endmsg, new DecimalFormat("#.#").format(secs))));
             lk.getParkourData().save();
         }

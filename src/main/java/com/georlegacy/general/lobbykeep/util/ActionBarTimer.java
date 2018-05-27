@@ -19,7 +19,7 @@ public class ActionBarTimer implements Runnable {
 
     @Override
     public void run() {
-        TextComponent prefix = new TextComponent("+--[");
+        TextComponent prefix = new TextComponent("Current Time: ");
         prefix.setColor(ChatColor.DARK_GREEN);
         prefix.setBold(true);
         prefix.setStrikethrough(true);
@@ -28,7 +28,7 @@ public class ActionBarTimer implements Runnable {
         time.setBold(true);
         time.setColor(ChatColor.GREEN);
 
-        TextComponent suffix = new TextComponent("]--+");
+        TextComponent suffix = new TextComponent(" seconds");
         suffix.setColor(ChatColor.DARK_GREEN);
         suffix.setBold(true);
         suffix.setStrikethrough(true);
