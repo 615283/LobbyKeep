@@ -6,6 +6,7 @@ import com.georlegacy.general.lobbykeep.commands.*;
 import com.georlegacy.general.lobbykeep.listeners.FallListener;
 import com.georlegacy.general.lobbykeep.listeners.PKMoveListener;
 import com.georlegacy.general.lobbykeep.listeners.UserJoin;
+import com.georlegacy.general.lobbykeep.listeners.WorldChangeResetListener;
 import com.georlegacy.general.lobbykeep.util.UserManager;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -31,6 +32,7 @@ public class LobbyKeep extends JavaPlugin {
         pm.registerEvents(new FallListener(this), this);
         pm.registerEvents(new PKMoveListener(this), this);
         pm.registerEvents(new UserJoin(this), this);
+        pm.registerEvents(new WorldChangeResetListener(this), this);
 
         getCommand("pkcreate").setExecutor(new ParkourCreateCommand(this));
         getCommand("lkreload").setExecutor(new ReloadCommand(this));

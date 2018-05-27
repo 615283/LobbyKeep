@@ -19,15 +19,19 @@ public class ActionBarTimer implements Runnable {
 
     @Override
     public void run() {
-        TextComponent prefix = new TextComponent("Current Time: ");
+        TextComponent prefix = new TextComponent("+--[");
         prefix.setColor(ChatColor.DARK_GREEN);
         prefix.setBold(true);
+        prefix.setStrikethrough(true);
 
         TextComponent time = new TextComponent(new DecimalFormat("#.#").format((float) lk.getParkourData().parkourAttemptTimes.get(p).elapsed(TimeUnit.MILLISECONDS)/1000F));
         time.setBold(true);
         time.setColor(ChatColor.GREEN);
 
-        TextComponent suffix = new TextComponent("");
+        TextComponent suffix = new TextComponent("]--+");
+        suffix.setColor(ChatColor.DARK_GREEN);
+        suffix.setBold(true);
+        suffix.setStrikethrough(true);
 
         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, prefix, time, suffix);
     }
