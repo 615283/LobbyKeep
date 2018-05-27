@@ -22,7 +22,10 @@ public class PKStartCommand implements CommandExecutor {
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &cYou are not currently attempting a parkour. To start one, use &7/pkstart <parkour>"));
                 return true;
             }
-            String pkn = lk.getParkourData().parkourAttempts.get((Player) sender);
+            String pkn = lk.getParkourData().parkourAttempts.get((Player) sender);Bukkit.getServer().getScheduler().cancelTask(lk.getParkourData().abts.get((Player) sender));
+            lk.getParkourData().parkourAttempts.remove((Player) sender);
+            lk.getParkourData().parkourAttemptTimes.remove((Player) sender);
+            
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eBC &7| &aSending you to &2" + pkn));
             Location start = new Location(
                     Bukkit.getServer().getWorld(lk.getParkourData().parkour.getString(pkn + ".World")),

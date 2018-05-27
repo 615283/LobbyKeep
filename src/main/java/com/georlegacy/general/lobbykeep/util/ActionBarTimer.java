@@ -22,7 +22,6 @@ public class ActionBarTimer implements Runnable {
         TextComponent prefix = new TextComponent("Current Time: ");
         prefix.setColor(ChatColor.DARK_GREEN);
         prefix.setBold(true);
-        prefix.setStrikethrough(true);
 
         TextComponent time = new TextComponent(new DecimalFormat("#.#").format((float) lk.getParkourData().parkourAttemptTimes.get(p).elapsed(TimeUnit.MILLISECONDS)/1000F));
         time.setBold(true);
@@ -31,7 +30,6 @@ public class ActionBarTimer implements Runnable {
         TextComponent suffix = new TextComponent(" seconds");
         suffix.setColor(ChatColor.DARK_GREEN);
         suffix.setBold(true);
-        suffix.setStrikethrough(true);
 
         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, prefix, time, suffix);
     }
